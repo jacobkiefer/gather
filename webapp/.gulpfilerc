@@ -1,0 +1,30 @@
+{
+  "name": "Gather",
+  "version": "0.0.1",
+  "authors": [
+    "Jonathan Yates <jonathantyates@gmail.com>",
+    "Sean McGlynn <sean.a.mcglynn@gmail.com>",
+    "Jacob Kiefer <jacob.kiefer@gmail.com>"
+  ],
+  "description": "Bringing your community to you.",
+  "license": "MIT",
+  "homepage": "https://github.com/jonathantyates/gather",
+  "repository": "https://github.com/jonathantyates/gather",
+  "globs": {
+    "images": "./app/images/**/*",
+    "index": "./app/index.html",
+    "javascript": "./app/**/*.js",
+    "sass": "./app/**/*.scss",
+    "templates": "./app/components/**/*.html",
+    "tests": "./app/**/*-test.js"
+  },
+  "laravel": {
+    "views": "../../app/views/",
+    "public": "../../public/",
+    "prefix": "./modules/mtac/"
+  },
+  "server": {
+    "livereload": false,
+    "port": 8080
+  }
+}

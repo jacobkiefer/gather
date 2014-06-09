@@ -1,0 +1,53 @@
+// Waiting State
+.waiting {
+  position: relative;
+
+  // Child Waiting States
+  & .waiting::before {
+    z-index: 1;
+  }
+}
+
+// Waiting State Background
+.waiting::after {
+  background: darken($brand-primary, 15);
+  content: '';
+  display: block;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+}
+
+// Hover Waiting State Background
+.waiting:hover::after {
+  background: darken($brand-primary, 20);
+}
+
+// Waiting State Text
+.waiting::before {
+  @include animation(1000ms pulse infinite alternate);
+  @include transition(1000ms letter-spacing ease-in-out);
+  color: #e0e0e0;
+  content: attr(data-waiting-text);
+  display: block;
+  font-family: $font-family-sans-serif-complement;
+  font-size: 120%;
+  font-weight: bold;
+  left: 0;
+  letter-spacing: 2px;
+  margin-top: -0.75em;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  text-transform: uppercase;
+  top: 50%;
+  z-index: 2;
+}
+
+// Hover Waiting State Text
+.waiting:hover::before {
+  color: darken(#e5e5e5, 20);
+}

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>MTAC</title>
+    <link href="/images/" rel="icon">
+    <!-- inject:css -->
+    <!-- endinject -->
+</head>
+
+<body ng-app="gather">
+
+    <!-- Navigation Menu -->
+    <nav bs-navbar class="navbar navbar-inverse navigation-menu">
+        <div class="navigation-menu-inner">
+
+            <!-- Navigation Menu Header -->
+            <header class="navigation-menu-header">
+                <button type="button" class="navbar-toggle">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navigation-menu-brand" href="#"><img class="navigation-menu-icon"> Gather</a>
+            </header>
+
+            <!-- Navigation Menu Navigation -->
+            <nav class="navigation-menu-navigation-wrapper">
+                <ul class="nav navbar-nav navigation-menu-navigation" ui-view="navigation-menu"></ul>
+            </nav>
+        </div>
+    </nav>
+
+    <!-- Application Root View -->
+    <main class="content" ui-view="main"></main>
+
+    <!-- Fonts -->
+    <script src="//ajax.googleapis.com/ajax/libs/webfont/1/webfont.js"></script>
+    <script>WebFont.load({google: {families: ['Lemon:300,400,600,700', 'Open Sans:300,400,600,700']}});</script>
+
+    <!-- External Dependencies -->
+    <!-- inject:bower -->
+    <!-- endinject -->
+
+    <!-- MTAC -->
+    <!-- inject:js -->
+    <!-- endinject -->
+</body>
+</html>

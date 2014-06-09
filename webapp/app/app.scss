@@ -1,0 +1,73 @@
+// Bootstrap and Open Sans Variables
+@import '_variables.scss';
+
+// Bootstrap
+@import 'bootstrap-sass-official/vendor/assets/stylesheets/bootstrap.scss';
+
+// Open Sans
+@import 'open-sans-fontface/open-sans.scss';
+
+// Bootstrap Block Grid Extension
+@import '_block-grid.scss';
+
+// Animations
+@import '_animations.scss';
+
+// Card Styles
+@import '_card.scss';
+
+// Modal Styles
+@import '_modal.scss';
+
+// Waiting Mask
+@import '_waiting.scss';
+
+// HTML and Body
+html, body {
+  height: 100%;
+}
+
+// Application Navigation Menu
+.navigation-menu {
+  @extend .navbar-fixed-top;
+}
+
+.navigation-menu-inner {
+  @extend .container;
+}
+
+.navigation-menu-header {
+  @extend .navbar-header;
+}
+
+.navigation-menu-icon {
+  float: left;
+  height: $navbar-icon-height;
+  margin-right: 8px;
+}
+
+.navigation-menu-brand {
+  @extend .navbar-brand;
+  font-family: $font-family-sans-serif-complement;
+  font-weight: 800;
+  letter-spacing: 0.125em;
+}
+
+.navigation-menu-navigation-wrapper {
+  @extend .navbar-collapse;
+  @extend .collapse;
+}
+
+.navigation-menu-navigation {
+  @extend .navbar-right;
+  margin-right: 0 !important;
+}
+
+// Application Content
+.content {
+  @extend .container;
+  height: 100%;
+  padding-top: $navbar-height;
+}
+
+// Gather Components
