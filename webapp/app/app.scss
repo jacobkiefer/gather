@@ -1,26 +1,12 @@
-// Bootstrap and Open Sans Variables
-@import '_variables.scss';
-
-// Bootstrap
-@import 'bootstrap-sass-official/vendor/assets/stylesheets/bootstrap.scss';
-
-// Open Sans
-@import 'open-sans-fontface/open-sans.scss';
-
-// Bootstrap Block Grid Extension
-@import '_block-grid.scss';
-
-// Animations
-@import '_animations.scss';
-
-// Card Styles
-@import '_card.scss';
-
-// Modal Styles
-@import '_modal.scss';
-
-// Waiting Mask
-@import '_waiting.scss';
+@import '_variables.scss'; // Bootstrap and Open Sans Variables
+@import 'bootstrap-sass-official/vendor/assets/stylesheets/bootstrap.scss'; // Bootstrap
+@import 'open-sans-fontface/open-sans.scss'; // Open Sans
+@import '_block-grid.scss'; // Bootstrap Block Grid Extension
+@import '_animations.scss'; // Animations
+@import '_aside.scss'; // Aside
+@import '_card.scss'; // Card
+@import '_modal.scss'; // Modal
+@import '_waiting.scss'; // Waiting Mask
 
 // HTML and Body
 html, body {
