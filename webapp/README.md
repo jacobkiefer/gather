@@ -2,7 +2,7 @@ MTAC Web Application
 ====================
 
 Getting Started
----––---------------
+--------------------
 1. Install Node JS. http://nodejs.org/
 2. Navigate by terminal to the webapp directory.
 3. In terminal, run the command ```npm install```
