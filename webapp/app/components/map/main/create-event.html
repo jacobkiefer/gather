@@ -1,0 +1,33 @@
+<form class="create-new-event" role="form" ng-submit="mapMainCtrl.saveEvent()">
+    <!-- Name of Event -->
+    <div class="form-group">
+        <label>Name of Event</label>
+        <input type="string"
+               class="form-control"
+               placeholder="Name of Event"
+               ng-model="mapMainCtrl.newEvent.name">
+    </div>
+
+    <!-- Length of Time -->
+    <div class="form-group">
+        <label>At What Time</label>
+        <input type="string"
+               class="form-control"
+               placeholder="Time"
+               bs-timepicker
+               ng-model="mapMainCtrl.newEvent.time"
+               data-minute-step="1">
+    </div>
+
+    <!-- Number of People -->
+    <div class="form-group">
+        <label>How Many People?</label>
+        <input type="number"
+               class="form-control"
+               placeholder="Number of People"
+               ng-model="mapMainCtrl.newEvent.numberOfPeople">
+    </div>
+
+    <!-- Create Event -->
+    <button type="submit" class="btn btn-primary btn-block">Broadcast Event</button>
+</form>

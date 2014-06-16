@@ -25,7 +25,7 @@
      * that Gather needs to be stateful.
      * @type {string[]}
      */
-    var childDependencies = [];
+    var childDependencies = ['gather.map'];
 
     /**
      * Gather Module
@@ -45,5 +45,10 @@
      * @constant
      */
     gatherModule.constant('_', lodash);
+
+    window.onGoogleReady = function () {
+        console.log('google loaded');
+        angular.bootstrap(window.document.body, ['gather']);
+    };
 
 })(window, window.angular, window._);

@@ -19,7 +19,6 @@ html, body {
 }
 
 .navigation-menu-inner {
-  @extend .container;
 }
 
 .navigation-menu-header {
@@ -51,9 +50,9 @@ html, body {
 
 // Application Content
 .content {
-  @extend .container;
   height: 100%;
   padding-top: $navbar-height;
 }
 
 // Gather Components
+@import './components/map/main/main.scss';
