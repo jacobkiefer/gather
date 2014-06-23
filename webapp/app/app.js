@@ -47,7 +47,6 @@
     gatherModule.constant('_', lodash);
 
     window.onGoogleReady = function () {
-        console.log('google loaded');
         angular.bootstrap(window.document.body, ['gather']);
     };
 

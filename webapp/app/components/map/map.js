@@ -8,7 +8,7 @@
      *
      * @type {*|module}
      */
-    var mapModule = angular.module('gather.map', ['gather.templates', 'ui.map']);
+    var mapModule = angular.module('gather.map', ['gather.templates', 'ui.map', 'firebase']);
 
     /**
      * Configuration of the Map Module
@@ -27,7 +27,11 @@
             name: 'map',
             url: '/map',
             data: {},
-            resolve: /**@ngInject*/ {},
+            resolve: /**@ngInject*/ {
+              events: function ($firebase) {
+                return $firebase(new Firebase('https://gatherapp.firebaseio.com/events'));
+              }
+            },
             views: {
                  /*
                  * Main UI View targeted at root state.
@@ -35,8 +39,8 @@
                  * This controller and template are found within `./main` directory.
                  */
                 'main@': {
-                    controller: 'MapMainCtrl as mapMainCtrl',
-                    templateUrl: 'components/map/main/main.html'
+                    controller: 'EventMap as EventMap',
+                    templateUrl: 'components/map/main/event-map.html'
                 },
 
                 /**

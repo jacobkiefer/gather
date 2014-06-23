@@ -2,3 +2,5 @@
      ui-map="mapMainCtrl.map"
      ui-options="mapMainCtrl.mapConfig"
      ui-event="{'map-click': 'mapMainCtrl.createEvent($event, $params)'}"></section>
+
+<span ng-repeat="marker in mapMainCtrl.markers" ui-map-marker="marker"></span>

@@ -1,11 +1,11 @@
-<form class="create-new-event" role="form" ng-submit="mapMainCtrl.saveEvent()">
+<form class="create-new-event" role="form" ng-submit="EventMap.createEvent()">
     <!-- Name of Event -->
     <div class="form-group">
         <label>Name of Event</label>
         <input type="string"
                class="form-control"
                placeholder="Name of Event"
-               ng-model="mapMainCtrl.newEvent.name">
+               ng-model="EventMap.eventTemplate.name">
     </div>
 
     <!-- Length of Time -->
@@ -15,7 +15,7 @@
                class="form-control"
                placeholder="Time"
                bs-timepicker
-               ng-model="mapMainCtrl.newEvent.time"
+               ng-model="EventMap.eventTemplate.date"
                data-minute-step="1">
     </div>
 
@@ -25,7 +25,7 @@
         <input type="number"
                class="form-control"
                placeholder="Number of People"
-               ng-model="mapMainCtrl.newEvent.numberOfPeople">
+               ng-model="EventMap.eventTemplate.numberOfPeople">
     </div>
 
     <!-- Create Event -->
