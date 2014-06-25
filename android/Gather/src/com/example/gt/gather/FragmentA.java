@@ -2,7 +2,6 @@ package com.example.gt.gather;
 
 import java.util.ArrayList;
 
-import com.example.gt.gather.FragmentA.Communicator;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
@@ -25,7 +24,7 @@ import android.widget.Toast;
 public class FragmentA extends Fragment{
 	
 	ListView list;
-	static Communicator comm;
+	CommunicatorA comm;
 	
 	String[] eventTitles, eventTimes, myTitles, myTimes;
 	ArrayList<SingleRow> myList, eventsList, displayedList;
@@ -39,7 +38,6 @@ public class FragmentA extends Fragment{
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		comm = (Communicator) getActivity();
 		list = (ListView) getActivity().findViewById(R.id.listView1);
 		
 		eventsList = new ArrayList<SingleRow>();
@@ -54,7 +52,7 @@ public class FragmentA extends Fragment{
 			eventsList.add(new SingleRow(eventTitles[i], eventPlayers[i], eventImages[i]));
 			comm.populateMap(i);
 		}
-		final MyAdapter adapter = new MyAdapter(getActivity(), eventsList, comm, locations);
+		final MyAdapter adapter = new MyAdapter(getActivity(), eventsList, locations);
 		list.setAdapter(adapter);
 		list.setOnItemClickListener(new OnItemClickListener(){
 			@Override
@@ -64,103 +62,14 @@ public class FragmentA extends Fragment{
 		});
 	}
 	
-	public interface Communicator {
+	public interface CommunicatorA {
 		public void moveCameraToLocation(int eventNo);
 		public void populateMap(int pos);
 	}
 	
-	public void setCommunicator(Communicator c)
+	public void setCommunicator(CommunicatorA c)
 	{
 		comm = c;
-	}
-}
-
-class SingleRow
-{
-	String title, numPlayers;
-	int image;
-	SingleRow(String title, String players, int image)
-	{
-		this.title = title;
-		this.image = image;
-		this.numPlayers = players;
-	}
-}
-
-class  MyAdapter extends BaseAdapter {
-	Context context;
-	ArrayList<SingleRow> myList;
-		
-	MyAdapter(Context c, ArrayList<SingleRow> list, Communicator comm, double[][] locations)
-	{   
-		context = c;
-		myList = list;
-	}
-	
-	class MyViewHolder
-	{
-		ImageView myImage;
-		TextView myTitle;
-		TextView numPlayers;
-		Button joinBtn;
-		MyViewHolder(View v)
-		{
-			myImage = (ImageView) v.findViewById(R.id.eventImage);
-			myTitle = (TextView) v.findViewById(R.id.eventTitleText);
-			numPlayers = (TextView) v.findViewById(R.id.numPlayersText);
-			joinBtn = (Button) v.findViewById(R.id.joinButton);
-		}
-	}
-	
-	@Override
-	public View getView(final int position, View convertView, ViewGroup parent){
-		View row = convertView;
-		MyViewHolder holder = null;
-		if (row == null)
-		{
-			LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			row = inflater.inflate(R.layout.single_row, parent,false);
-			holder = new MyViewHolder(row);
-			row.setTag(holder);
-//			Log.d("JMK", "Creating a new row");
-		}
-		else
-		{
-			holder = (MyViewHolder) row.getTag();
-//			Log.d("JMK", "Recycling stuff");
-		}
-		
-		SingleRow temp = myList.get(position);
-		
-		holder.myImage.setImageResource(temp.image);
-		holder.myTitle.setText(temp.title);
-		holder.numPlayers.setText(temp.numPlayers);
-				
-		holder.joinBtn.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(context, JoinActivity.class);
-				intent.putExtra("index", position);
-				context.startActivity(intent);
-			}
-		});
-		
-		return row;
-	}
-
-	@Override
-	public int getCount() {
-		return myList.size();
-	}
-
-	@Override
-	public Object getItem(int position) {
-		return myList.get(position);
-	}
-
-	@Override
-	public long getItemId(int position) {
-		return position;
 	}
 }
 
