@@ -11,6 +11,12 @@
 // HTML and Body
 html, body {
   height: 100%;
+  background: darken(#789, 40%);
+}
+
+// Form
+form {
+  padding-top: 1.5em;
 }
 
 // Application Navigation Menu
