@@ -1,6 +1,25 @@
+<!-- Event Map -->
 <section class="map-canvas"
-     ui-map="mapMainCtrl.map"
-     ui-options="mapMainCtrl.mapConfig"
-     ui-event="{'map-click': 'mapMainCtrl.createEvent($event, $params)'}"></section>
+    ui-map="EventMap.map"
+    ui-options="EventMap.mapConfiguration"
+    ui-event="{'map-click': 'EventMap.showEventDetails($params)'}">
+</section>
 
-<span ng-repeat="marker in mapMainCtrl.markers" ui-map-marker="marker"></span>
+<!-- Marker Events -->
+<ul>
+  <li ng-repeat="(eventKey, marker) in EventMap.markers"
+       ui-map-marker="marker"
+       ui-event="{'map-click': 'EventMap.showEventMarkerInfoWindow(eventKey, marker)'}">{{$index}}
+  </li>
+</ul>
+
+<!-- Marker Info Window -->
+<section class="info-window" ui-map-info-window="EventMap.infoWindow">
+  <h4>{{EventMap.infoWindow.event.name}}</h4>
+  <p>The event is scheduled for
+      <b>{{EventMap.infoWindow.event.date | date: 'medium'}}</b>
+  </p>
+  <p>Number of People Needed
+      <b>{{EventMap.infoWindow.event.numberOfPeople}}</b>
+  </p>
+</section>

@@ -21,6 +21,13 @@ function EventMap ($scope, $modal, events) {
   });
   this.events_ = events;
 
+  this.eventAlert_ = $modal({
+    scope: $scope,
+    contentTemplate: 'components/map/main/event-alert.html',
+    title: 'Event Alert',
+    show: false
+  });
+
   this.map = undefined;
   this.mapConfiguration = {
     center: new google.maps.LatLng(40, 265),
@@ -36,6 +43,8 @@ function EventMap ($scope, $modal, events) {
   this.events_.$on('child_added', this.createEventMarker.bind(this));
   this.events_.$on('child_changed', this.updateEventMarker.bind(this));
   this.events_.$on('child_removed', this.deleteEventMarker.bind(this));
+
+  this.infoWindow = undefined;
 }
 
 EventMap.prototype.showEventDetails = function ($params, event) {
@@ -69,6 +78,17 @@ EventMap.prototype.createEventMarker = function (event) {
       lng: event.snapshot.value.longitude
     }
   });
+
+  if (this.userLocationMarker_) {
+    var distance = google.maps.geometry.spherical.computeDistanceBetween (
+        this.userLocationMarker_.position,
+        this.markers[event.snapshot.name].position);
+
+    // Limit distance to 300 meters
+    if (distance < 300) {
+      this.showEventAlert(event, distance);
+    }
+  }
 };
 
 EventMap.prototype.updateEventMarker = function (event) {
@@ -80,6 +100,24 @@ EventMap.prototype.updateEventMarker = function (event) {
 
 EventMap.prototype.deleteEventMarker = function (event) {
   this.markers[event.snapshot.name].setMap(null);
+};
+
+EventMap.prototype.showEventAlert = function (event, distance) {
+  this.activeEventAlert = event.snapshot;
+  this.activeEventAlert.distance = distance.toFixed(2) + ' Meters Away';
+  this.eventAlert_.show();
+};
+
+EventMap.prototype.joinEvent = function (event) {
+  this.events_.$child(event.name).$update({
+    numberOfPeople: event.value.numberOfPeople - 1
+  });
+  this.eventAlert_.hide();
+};
+
+EventMap.prototype.showEventMarkerInfoWindow = function (eventKey, marker) {
+  this.infoWindow.event = this.events_[eventKey];
+  this.infoWindow.open(this.map, marker);
 };
 
 EventMap.prototype.setUserLocationMarkerPosition = function (position) {
