@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="20dp" >
+
+    <TextView
+        android:id="@+id/when"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="10dp"
+        android:text="When: " 
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/dateView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/when"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/spacer"
+        android:text="date" 
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/where"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/when"
+        android:layout_marginBottom="10dp"
+        android:text="Where: " 
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/addressView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/where"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/spacer"
+        android:text="address" 
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/num_people"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/where"
+        android:layout_marginBottom="10dp"
+        android:text="Number of people: " 
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/numPeopleView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/num_people"
+        android:layout_alignBottom="@+id/num_people"
+        android:layout_toRightOf="@+id/spacer"
+        android:text="0" 
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <View
+        android:id="@+id/spacer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/num_people"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="2.5dp"
+        android:layout_marginRight="2.5dp"
+        android:layout_toRightOf="@+id/num_people" />
+    
+    <View
+        android:id="@+id/spacer2"
+        android:layout_width="1dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/num_people"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"  />
+    
+
+    <Button
+        android:id="@+id/joinButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/num_people"
+        android:layout_toLeftOf="@+id/spacer2"
+        android:background="#2B4F81"
+        android:textColor="#ffffff"
+        android:text="Join" />
+
+    <Button
+        android:id="@+id/cancelButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/joinButton"
+        android:layout_alignBottom="@+id/joinButton"
+        android:layout_alignRight="@+id/addressView"
+        android:layout_toRightOf="@+id/spacer2"
+        android:background="#2B4F81"
+        android:textColor="#ffffff"
+        android:text="Cancel" />
+
+</RelativeLayout>

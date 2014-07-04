@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" 
+    android:background="#FFFFFF">
+
+    <TextView
+        android:id="@+id/createTitleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="Choose Location"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/addressSearchBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/createTitleText"
+        android:hint="Type address here, or click map below"
+        android:ems="10" 
+        android:focusable="true"
+        android:focusableInTouchMode="true" 
+        android:imeOptions="actionSearch"
+        android:inputType="text"
+        android:imeActionLabel="Go">
+    </EditText>
+    
+    <View 
+        android:id="@+id/emptySpacer"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/addressSearchBox"
+        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_alignBottom="@+id/cancelButton"/>
+
+    <Button
+        android:id="@+id/cancelButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/emptySpacer"
+        android:layout_below="@+id/addressSearchBox"
+        android:text="Cancel" />
+
+    <Button
+        android:id="@+id/createButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/cancelButton"
+        android:layout_alignBottom="@+id/cancelButton"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/cancelButton"
+        android:text="Create" />
+
+"
+
+</RelativeLayout>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="20dp" 
+    android:background="#2B4F81">
+    
+    <TextView
+        android:id="@+id/TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:textColor="#fff"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:text="Are you sure you want to sign up?"
+        android:layout_marginBottom="10dp" />
+    
+    <View
+        android:id="@+id/spacer2"
+        android:layout_width="1dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/cancelButton"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"  />
+    
+
+    <Button
+        android:id="@+id/confirmSignUpButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@+id/spacer2"
+        android:layout_below="@+id/TextView"
+        android:textColor="#ffffff"
+        android:text="Yes" />
+
+    <Button
+        android:id="@+id/cancelButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/confirmSignUpButton"
+        android:layout_alignBottom="@+id/confirmSignUpButton"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/spacer2"
+        android:text="No"
+        android:textColor="#ffffff" />
+
+</RelativeLayout>
