@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="15dp" >
+
+    <TextView
+        android:id="@+id/nameView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="Name of event:"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/nameEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/nameView"
+        android:ems="10"
+        android:hint="Name of the Event/Activity" >
+    </EditText>
+
+    <TextView
+        android:id="@+id/dateText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/nameEditText"
+        android:paddingTop="15dp"
+        android:text="Choose date and time:"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/dateView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/dateText"
+        android:layout_below="@+id/dateText"
+        android:hint="mm/dd/yyyy"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <ImageView
+        android:id="@+id/dateButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dateText"
+        android:layout_toRightOf="@+id/dateView"
+        android:layout_alignBottom="@+id/dateView"
+        android:src="@android:drawable/ic_menu_today" 
+        android:scaleType="centerInside" 
+        android:layout_marginRight="40dp"/>
+    
+    <TextView
+        android:id="@+id/timeView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/dateButton"
+        android:layout_toRightOf="@+id/dateButton"
+        android:hint="hh:mm pm/am" />
+
+    <TextView
+        android:id="@+id/numPeopleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/dateView"
+        android:paddingTop="15dp"
+        android:text="Choose the number of people:"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/numPeopleEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/numPeopleText"
+        android:ems="10"
+        android:hint="Number of people "
+        android:inputType="number" >
+    </EditText>
+
+    <Button
+        android:id="@+id/broadcastButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/numPeopleEditText"
+        android:layout_alignRight="@+id/numPeopleEditText"
+        android:layout_below="@+id/numPeopleEditText"
+        android:background="#2B4F81"
+        android:text="Broadcast Event"
+        android:textColor="#ffffff" />
+
+    <ImageView
+        android:id="@+id/timeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/timeView"
+        android:layout_toRightOf="@+id/timeView"
+        android:src="@android:drawable/ic_lock_idle_alarm" 
+        android:layout_marginLeft="10dp"
+        android:background="#2B4F81"/>
+
+</RelativeLayout>

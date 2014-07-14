@@ -25,7 +25,7 @@
      * that Gather needs to be stateful.
      * @type {string[]}
      */
-    var childDependencies = ['gather.map'];
+    var childDependencies = ['gather.login', 'gather.map'];
 
     /**
      * Gather Module
@@ -46,8 +46,49 @@
      */
     gatherModule.constant('_', lodash);
 
+
+    gatherModule.service('auth', function ($rootScope, $location) {
+      $rootScope.loggedIn = false;
+
+      return new FirebaseSimpleLogin(
+        new Firebase('https://gatherapp.firebaseio.com'),
+        function (error, user) {
+          if (error) {
+            $rootScope.loggedIn = false;
+
+          } else if (user) {
+            $rootScope.loggedIn = true;
+
+          } else {
+            $rootScope.loggedIn = false;
+          }
+
+          $rootScope.$apply();
+        }
+      );
+    });
+
+    gatherModule.run(function ($rootScope, $location) {
+      $rootScope.$watch('loggedIn', function (loggedIn) {
+        if (!loggedIn) {
+          $location.path('/login');
+        } else if ($location.search().redirect) {
+          $location.path($location.search().redirect);
+          $location.search('redirect', null);
+        } else {
+          $location.path('/map');
+        }
+      });
+
+      $rootScope.$watch(function () { return $location.path(); }, function (path) {
+        if (!$rootScope.loggedIn && path != '/login') {
+          $location.path('/login');
+          $location.search('redirect', path);
+        }
+      });
+    });
+
     window.onGoogleReady = function () {
-        console.log('google loaded');
         angular.bootstrap(window.document.body, ['gather']);
     };
 
