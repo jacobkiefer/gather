@@ -1,0 +1,131 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/gatherBlue"
+    android:paddingLeft="@dimen/title_margin"
+    android:paddingRight="@dimen/title_margin">
+
+    <TextView
+        android:id="@+id/TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:text="Gather"
+        android:textColor="@color/white"
+        android:textSize="@dimen/formTitle"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/emailTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/TextView"
+        android:padding="2dp"
+        android:textSize="@dimen/labelText"
+        android:text="Email"
+        android:textColor="@color/white"
+        android:layout_marginBottom="@dimen/form_margin" />
+
+    <EditText
+        android:id="@+id/emailEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/emailTextView"
+        android:textSize="@dimen/editText"
+        android:inputType="textEmailAddress"
+        android:background="@color/white" 
+        android:layout_marginBottom="@dimen/form_margin">
+
+        <requestFocus />
+    </EditText>
+
+    <TextView
+        android:id="@+id/pwTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/emailEditText"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:textSize="@dimen/labelText"
+        android:padding="2dp"
+        android:text="Password"
+        android:textColor="@color/white" 
+        android:layout_marginBottom="@dimen/form_margin"/>
+
+    <EditText
+        android:id="@+id/pwEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/pwTextView"
+        android:textSize="@dimen/editText"
+        android:background="@color/white"
+        android:inputType="textPassword"
+        android:layout_marginBottom="@dimen/form_margin" />
+
+    <TextView
+        android:id="@+id/pwConfirmTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/pwEditText"
+        android:padding="2dp"
+        android:textSize="@dimen/labelText"
+        android:text="Confirm Password"
+        android:textColor="@color/white"
+        android:layout_marginBottom="@dimen/form_margin" />
+
+    <EditText
+        android:id="@+id/pwConfirmEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/pwConfirmTextView"
+        android:textSize="@dimen/editText"
+        android:background="@color/white"
+        android:inputType="textPassword"
+        android:layout_marginBottom="@dimen/form_margin" />
+
+    <CheckBox
+        android:id="@+id/loginCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/pwConfirmEditText"
+        android:checked="true"
+        android:text="Save Login"
+        android:textColor="@color/white"
+        android:layout_marginBottom="@dimen/form_margin" />
+
+    <View
+        android:id="@+id/spacer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/loginCheckBox"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="2.5dp"
+        android:layout_marginRight="2.5dp" />
+
+    <Button
+        android:id="@+id/signUpButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/loginCheckBox"
+        android:layout_toLeftOf="@+id/spacer"
+        android:text="Sign Up and Login"
+        android:textSize="@dimen/clickText"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
+
+</RelativeLayout>

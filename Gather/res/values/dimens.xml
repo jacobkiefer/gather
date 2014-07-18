@@ -1,0 +1,13 @@
+<resources>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="form_margin">10dp</dimen>
+    <dimen name="title_margin">20dp</dimen>
+    <dimen name="editText">28sp</dimen>
+    <dimen name="labelText">20sp</dimen>
+    <dimen name="clickText">24sp</dimen>
+    <dimen name="formTitle">30sp</dimen>
+
+</resources>

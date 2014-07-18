@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" 
+    android:background="#FFFFFF">
+
+    <EditText
+        android:id="@+id/addressSearchBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:paddingTop="@dimen/title_margin"
+        android:hint="Type address here, or click map below to create an event"
+        android:ems="10" 
+        android:focusable="true"
+        android:focusableInTouchMode="true" 
+        android:imeOptions="actionSearch"
+        android:inputType="textPostalAddress"
+        android:textSize="@dimen/labelText"
+        android:imeActionLabel="Go">
+    </EditText>
+    
+    <View 
+        android:id="@+id/emptySpacer"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/addressSearchBox"
+        android:layout_height="wrap_content"
+        android:layout_width="5dp"
+        android:layout_alignBottom="@+id/cancelButton"/>
+
+    <Button
+        android:id="@+id/cancelButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@+id/emptySpacer"
+        android:layout_below="@+id/addressSearchBox"
+        android:background="@color/gatherBlue"
+        android:textColor="@color/white"
+        android:textSize="@dimen/clickText"
+        android:text="Cancel" />
+
+    <Button
+        android:id="@+id/createButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/cancelButton"
+        android:layout_alignBottom="@+id/cancelButton"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/emptySpacer"
+        android:textColor="@color/white"
+        android:textSize="@dimen/clickText"
+        android:background="@color/gatherBlue"
+        android:text="Create" />
+
+"
+
+</RelativeLayout>
