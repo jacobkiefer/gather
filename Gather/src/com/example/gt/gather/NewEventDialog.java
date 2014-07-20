@@ -2,6 +2,7 @@ package com.example.gt.gather;
 
 import android.app.Activity;
 import android.app.DialogFragment;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -111,6 +112,12 @@ public class NewEventDialog extends DialogFragment implements View.OnClickListen
             minutes = String.valueOf(min);
 		
 		eventTime.setText(""+hour+":"+minutes+" "+am_pm);		
+	}
+	
+	@Override
+	public void onCancel(DialogInterface dialog) {
+		// TODO Auto-generated method stub
+		super.onCancel(dialog);
 	}
 	
 	interface Communicator

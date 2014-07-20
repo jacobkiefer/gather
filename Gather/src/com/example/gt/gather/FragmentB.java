@@ -15,6 +15,7 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMapLongClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMarkerDragListener;
@@ -48,7 +49,8 @@ public class FragmentB extends Fragment implements
 		GooglePlayServicesClient.ConnectionCallbacks,
 		GooglePlayServicesClient.OnConnectionFailedListener,
 		LocationListener,
-		OnMapClickListener, OnMapLongClickListener, OnMarkerDragListener{
+		OnMapClickListener, OnMapLongClickListener, OnMarkerDragListener,
+		OnInfoWindowClickListener{
 	
 	
 	final int CONNECTION_FAILURE_RESOLUTION_REQUEST = 1000;
@@ -69,6 +71,7 @@ public class FragmentB extends Fragment implements
 	SharedPreferences prefs;
 	Editor prefEditor;
 	boolean readyForUpdates;
+	String newEventMarkerID;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -105,6 +108,7 @@ public class FragmentB extends Fragment implements
 			cameraZoom = savedInstanceState.getFloat("lastCameraZoom");
 			isCreating = savedInstanceState.getBoolean("isCreating");
 			newEventLatLng = savedInstanceState.getDoubleArray("newEventLatLng");
+			newEventMarkerID = savedInstanceState.getString("newEventMarkerId");
 		}
 		
 		try 
@@ -124,6 +128,7 @@ public class FragmentB extends Fragment implements
 			googleMap.setOnMapClickListener(this);
 			googleMap.setOnMapLongClickListener(this);
 			googleMap.setOnMarkerDragListener(this);
+			googleMap.setOnInfoWindowClickListener(this);
 			
 			if(newEventLatLng != null)
 			{   
@@ -209,6 +214,7 @@ public class FragmentB extends Fragment implements
 		{
 			double[] newEventLatLng = {newEventMarker.getPosition().latitude, newEventMarker.getPosition().longitude};
 			outState.putDoubleArray("newEventLatLng", newEventLatLng);
+			outState.putString("newEventMarkerID", newEventMarkerID);
 		}
 	}
 
@@ -282,37 +288,23 @@ public class FragmentB extends Fragment implements
 				Toast.LENGTH_SHORT).show();
 	}
 	
-//	public double[] getUserLocation(){
-//		if (location == null && myLocationClient.isConnected())
-//		{
-//			location = myLocationClient.getLastLocation();
-//		}
-//		if (location != null)
-//		{
-//			double[] latlng = {location.getLatitude(), location.getLongitude()};
-//			return latlng;
-//		}
-//		else
-//		{
-//			Toast.makeText(getActivity(), "We had trouble getting you're location. We'll assume you are on campus, until we can get a fix on your location.", Toast.LENGTH_LONG).show();
-//			double[] latlng = {33.775618, -84.396285};	// Ga tech
-//			return latlng;
-//		}
-//	}
-	
 	public void addMarker(Event event) {
 		LatLng latlng = new LatLng(event.getCoords().getLatitude(), event.getCoords().getLongitude());
-		Marker marker = googleMap.addMarker(new MarkerOptions().position(latlng).title(event.getName()).snippet(""+event.getUsers().size()+" people attending"));
+		Marker marker = googleMap.addMarker(new MarkerOptions().position(latlng).title(event.getName()).snippet(""+event.getDate()+", "+event.getUsers().size()+" people attending"));
 		eventMarkers.add(marker);
+		
 	}
 	public void addMarker(double[] pointLatLng){
 		LatLng latlng = new LatLng(pointLatLng[0], pointLatLng[1]);
 		newEventMarker = googleMap.addMarker(new MarkerOptions().position(latlng).title("Create New Event"));
 		newEventMarker.setDraggable(true);
 		newEventMarker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+		newEventMarkerID = newEventMarker.getId();
 		newEventMarker.showInfoWindow();
 		googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latlng,17));
+	    
 	}
+	
 
 	
 	public void searchUpdateMarker(double[] pointLatLng){
@@ -370,7 +362,7 @@ public class FragmentB extends Fragment implements
 			else
 			{
 				newEventMarker.setPosition(pointLatLng);
-//				newEventMarker.showInfoWindow();
+				newEventMarker.showInfoWindow();
 			}
 			googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(pointLatLng,17));
 			comm.findAddress(pointLatLng, 1);
@@ -423,6 +415,7 @@ public class FragmentB extends Fragment implements
 		}
 		else if(location!=null && myCircle != null)
 		{
+			myCircle.setRadius(myRadius);
 			myCircle.setCenter(new LatLng(location.getLatitude(), location.getLongitude()));
 		}
 	}
@@ -494,6 +487,7 @@ public class FragmentB extends Fragment implements
 	{
 		public void findAddress(LatLng latlng, int itWasB);
 		public void updateLocation(Location location);
+		public void createNewEventFromInfoWindowClick();
 //		public void onConnectSetUserLocation(double[] latlng);
 	}
 
@@ -502,6 +496,22 @@ public class FragmentB extends Fragment implements
 		location = loc;
 		comm.updateLocation(loc);
 //		Toast.makeText(getActivity(), "location changed", Toast.LENGTH_SHORT).show();
+	}
+	
+	public boolean isConnected(){
+		return myLocationClient.isConnected();
+	}
+
+	@Override
+	public void onInfoWindowClick(Marker marker) {
+		if(isCreating)
+		{
+			if(marker.getId().equals(newEventMarkerID))
+			{
+				comm.createNewEventFromInfoWindowClick();
+			}
+		}
+		
 	}
 	
 }

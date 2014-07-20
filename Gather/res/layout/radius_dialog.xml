@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin">
+
+    <SeekBar
+        android:id="@+id/radiusSeekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true" 
+        android:max="5280"
+        android:progress="2640"/>
+
+    <TextView
+        android:id="@+id/radiusText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/radiusSeekBar"
+        android:layout_centerHorizontal="true"
+        android:text="TextView" 
+        android:textSize="@dimen/editText"
+        android:textColor="@color/gatherBlue"
+        android:layout_marginBottom="@dimen/form_margin"/>
+    
+    <View
+        android:id="@+id/spacer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/updateRadiusButton"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="2.5dp"
+        android:layout_marginRight="2.5dp"
+		android:layout_centerHorizontal="true"/>
+
+    <Button
+        android:id="@+id/cancelRadiusButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/spacer"
+        android:layout_below="@+id/radiusText"
+        android:text="Cancel" 
+        android:textSize="@dimen/clickText"
+        android:textColor="@color/white"
+        android:background="@color/gatherBlue"/>
+
+    <Button
+        android:id="@+id/updateRadiusButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/cancelRadiusButton"
+        android:layout_alignBottom="@+id/cancelRadiusButton"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/spacer"
+        android:text="Update Radius" 
+        android:textSize="@dimen/clickText"
+        android:textColor="@color/white"
+        android:background="@color/gatherBlue"/>
+
+</RelativeLayout>

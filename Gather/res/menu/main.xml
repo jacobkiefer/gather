@@ -22,9 +22,9 @@
         android:showAsAction="ifRoom"
         android:title="Search"/>
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/act_radius"
         android:orderInCategory="400"
-        android:title="@string/action_settings"
+        android:title="Adjust Radius"
         app:showAsAction="never"/>
     
     <item

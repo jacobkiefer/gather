@@ -8,6 +8,7 @@ import com.firebase.client.Firebase;
 import android.app.Fragment;
 import android.database.DataSetObserver;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +39,7 @@ public class FragmentA extends Fragment{
 	public void refresh(User user){
 		if (dataRef != null)
 		{
+			comm.clearMap();
 			adapter = new MyAdapter(dataRef.child("events").limit(15), getActivity(), R.layout.single_row, getActivity(), user);
 			list.setAdapter(adapter);
 			
@@ -81,6 +83,17 @@ public class FragmentA extends Fragment{
 	
 	public void setDataBaseReference(Firebase f){
 		dataRef = f;
+	}
+	
+	public boolean isFirebaseConnected(){
+		if(dataRef != null && adapter != null)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 }
 

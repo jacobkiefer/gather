@@ -76,7 +76,7 @@ public abstract class FirebaseEventListAdapter extends BaseAdapter {
                 {
                 	double[] myCoords = myUser.getCoords();
                 	double distance = event.findDistance(myCoords[0], myCoords[1]);
-                	if (distance <= myUser.getRadius())
+                	if (distance <= (double) myUser.getRadius())
                 	{           
 
 		                // Insert into the correct location, based on previousChildName
@@ -118,7 +118,7 @@ public abstract class FirebaseEventListAdapter extends BaseAdapter {
                 if(myCoords != null)
                 {
                 	double distance = newEvent.findDistance(myCoords[0], myCoords[1]);
-                	if (distance <= myUser.getRadius())
+                	if (distance <= (double) myUser.getRadius())
                 	{
 		                events.set(index, newEvent);
 		                eventIds.set(index, eventName);

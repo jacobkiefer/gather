@@ -3,6 +3,7 @@ package com.example.gt.gather;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.RandomAccess;
 
 import com.firebase.client.Firebase;
 import com.firebase.simplelogin.FirebaseSimpleLoginError;
@@ -46,6 +47,7 @@ public class MainActivity extends Activity implements FragmentA.Communicator,
 													  TimePickerFragment.Communicator,
 													  DatePickerFragment.Communicator,
 													  JoinEventDialog.Communicator,
+													  RadiusDialog.Communicator,
 													  com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks, 
 													  com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener{
 	
@@ -57,6 +59,7 @@ public class MainActivity extends Activity implements FragmentA.Communicator,
 	Firebase dataRef;
 	SimpleLogin authClient;
 	User myUser;
+	int radius = -1;
 	private static final int RC_SIGN_IN = 0;
 	private GoogleApiClient googleApiClient;
 	boolean intentInProgress;
@@ -74,6 +77,11 @@ public class MainActivity extends Activity implements FragmentA.Communicator,
 		dataRef = new Firebase("https://gatherapp.firebaseio.com/");
 		authClient = new SimpleLogin(dataRef, getApplicationContext());
 		createContainer = findViewById(R.id.createContainer);
+		if (savedInstanceState!=null) 
+		{
+			isCreating = savedInstanceState.getBoolean("isCreating");
+			radius = savedInstanceState.getInt("radius");
+		}
 		if(isCreating)
 		{
 			createContainer.setVisibility(View.VISIBLE);
@@ -105,8 +113,6 @@ public class MainActivity extends Activity implements FragmentA.Communicator,
 			default:
 				break;
 			}
-//				Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-				myUser = new User("User", 5280.0/2);
 		}
 		else if (requestCode == RC_SIGN_IN) {
 			intentInProgress = false;
@@ -148,14 +154,24 @@ public class MainActivity extends Activity implements FragmentA.Communicator,
 	    		return true;
 	        case R.id.act_logout: 
 	        	{
-	        		if(googleApiClient.isConnected())
+	        		if(googleApiClient!=null)
 	        		{
-	        			Plus.AccountApi.clearDefaultAccount(googleApiClient);
-	        			googleApiClient.disconnect();
+		        		if(googleApiClient.isConnected())
+		        		{
+		        			Plus.AccountApi.clearDefaultAccount(googleApiClient);
+		        			googleApiClient.disconnect();
+		        		}
 	        		}
-//	        		authClient.logout();
+	        		authClient.logout();
 	        		checkLoginStatus();
+	        		return true;
 	        	}
+	        case R.id.act_radius:
+	        {
+	        	RadiusDialog radiusDialog = new RadiusDialog();
+	    		radiusDialog.show(manager, "RadiusDialog");
+	    		return true;
+	        }
 	        default:
 	            return super.onOptionsItemSelected(item);
 	    }
@@ -165,6 +181,7 @@ public class MainActivity extends Activity implements FragmentA.Communicator,
 	protected void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
 		outState.putBoolean("isCreating", isCreating);
+		if (myUser != null)	outState.putInt("radius", myUser.getRadius());
 		
 	}
 	
@@ -220,25 +237,27 @@ public class MainActivity extends Activity implements FragmentA.Communicator,
 	@Override
 	public void createNewEvent() {
 		FragmentCreate createEventFrag = (FragmentCreate) manager.findFragmentByTag("CreateEventFragment");
-    	FragmentTransaction transaction = manager.beginTransaction();
-		transaction.remove(createEventFrag);
-		transaction.commit();
-		createContainer.setVisibility(View.GONE);
+//		createContainer.setVisibility(View.GONE);
 		NewEventDialog newEventDialog = new NewEventDialog();
 		newEventDialog.show(manager, "newEventDialog");
 	}
  
 	@Override
 	public void onBroadcastMessage(String name, String date, int capacity) {
-			Event newEvent = new Event(name, date, fragB.getNewEventLatitude(), fragB.getNewEventLongitude(), capacity, myUser.getEmail());
+			FragmentCreate createEventFrag = (FragmentCreate) manager.findFragmentByTag("CreateEventFragment");
+			FragmentTransaction transaction = manager.beginTransaction();
+			transaction.remove(createEventFrag);
+			transaction.commit();
+			Event newEvent = new Event(name, date, fragB.getNewEventLatitude(), fragB.getNewEventLongitude(), capacity, myUser.getFirebaseSimpleLoginUser().getUid());
 			fragB.setIsCreating(false);
 			fragB.clearNewEvent();
 			dataRef.child("events").push().setValue(newEvent);
 	}
 	
 	@Override
-	public void join(String id) {
-		dataRef.child("events").child(id).child("users").push().setValue(myUser.getEmail());	
+	public void join(String id, ArrayList<String> users) {
+		users.add(myUser.getFirebaseSimpleLoginUser().getUserId());
+		dataRef.child("events").child(id).child("users").setValue(users);	
 	}
 
 	@Override
@@ -286,35 +305,54 @@ public class MainActivity extends Activity implements FragmentA.Communicator,
 	}
 	
 	public void checkLoginStatus(){
+		Log.d("JMK", "checkStatus");
 		authClient.checkAuthStatus(new SimpleLoginAuthenticatedHandler() {
 			  public void authenticated(FirebaseSimpleLoginError error, FirebaseSimpleLoginUser user) {
 				  String myMsg = "";
-				  if (error != null) 
-				  {
-						String msg = error.getMessage();
-						switch (error.getCode()) 
-						{
-						case AccessNotGranted:
-							myMsg = "Access Not Granted.";
-							break;
-						default:
-							myMsg = "Error Checking Log-In Status. Please Try Again";
-							break;						
-						}
-						Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
-						Toast.makeText(getApplicationContext(), myMsg, Toast.LENGTH_LONG).show();
+				  Log.d("JMK", "authenticated");
+			  if (error != null) 
+			  {
+				  	Log.d("JMK", "auth error");
+					String msg = error.getMessage();
+					switch (error.getCode()) 
+					{
+					case AccessNotGranted:
+						myMsg = "Access Not Granted.";
+						break;
+					default:
+						myMsg = "Error Checking Log-In Status. Please Try Again";
+						break;						
+					}
+					Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+					Toast.makeText(getApplicationContext(), myMsg, Toast.LENGTH_LONG).show();
 				}
 			    else if (user == null) 
-			    {
+			    {	Log.d("JMK", "no user");
+			    	if(googleApiClient!=null)
+			    	{
+				    	if(googleApiClient.isConnected())
+		        		{
+		        			Plus.AccountApi.clearDefaultAccount(googleApiClient);
+		        			googleApiClient.disconnect();
+		        		}
+			    	}
 			    	Intent loginIntent = new Intent(getApplicationContext(), LoginActivity.class);
 			    	startActivityForResult(loginIntent, 100);
-//			    	Toast.makeText(getApplicationContext(), "You are not logged in.", Toast.LENGTH_SHORT).show();
 			    } 
 			    else 
 			    {
 			    	Log.d("JMK", "User Logged IN");
-			        // There is a logged in user
-			    	myUser = new User("User", 5280.0/2);
+			    	if (myUser == null)
+			    	{
+			    		if (radius < 0) radius = 5280/2; 
+				    	myUser = new User("", radius);
+				    	myUser.setFirebaseSimpleLoginUser(user);
+			    	}
+			    	if (!fragB.isConnected() && !fragA.isFirebaseConnected())
+			    	{			    	
+				    	fragA.setDataBaseReference(dataRef);
+						fragB.onLogin();
+			    	}
 			    }
 			  }
 			});
@@ -364,7 +402,7 @@ public class MainActivity extends Activity implements FragmentA.Communicator,
 //		fragA.setDataBaseReference(dataRef);
 //		fragB.onLogin();
 //		 Google+ Sign In Connection Success
-		Toast.makeText(this, "User is connected to Google!", Toast.LENGTH_LONG).show();
+//		Toast.makeText(this, "User is connected to Google!", Toast.LENGTH_LONG).show();
 		String scope = "oauth2:" + Scopes.PLUS_LOGIN;
 		
 		AsyncTask task = new AsyncTask() {
@@ -376,10 +414,10 @@ public class MainActivity extends Activity implements FragmentA.Communicator,
 					// We can retrieve the token to check via
 					// token info or to pass to a service-side
 					// application.
-					accessToken = GoogleAuthUtil.getToken(getApplicationContext(),
+					accessToken = GoogleAuthUtil.getTokenWithNotification(getApplicationContext(),
 						      Plus.AccountApi.getAccountName(googleApiClient),
-						      scope);
-//					Log.d("JMK", "Token "+accessToken);
+						      scope, new Bundle());
+					Log.d("JMK", "Token "+accessToken);
 					
 				} catch (UserRecoverableAuthException e) {
 					// This error is recoverable, so we could fix this
@@ -410,6 +448,10 @@ public class MainActivity extends Activity implements FragmentA.Communicator,
 			      // Logged in with Google+
 //			    	Toast.makeText(getApplicationContext(), "User is connected to Firebase!", Toast.LENGTH_LONG).show();
 			    	Log.d("JMK", "User is connected to Firebase");
+			    	
+			    	if (radius < 0) radius = 5280/2; 
+			    	myUser = new User("", radius);
+			    	myUser.setFirebaseSimpleLoginUser(user);
 			    	fragA.setDataBaseReference(dataRef);
 					fragB.onLogin();
 			    	
@@ -421,77 +463,21 @@ public class MainActivity extends Activity implements FragmentA.Communicator,
 		};
 	task.execute((Void) null);
 	}
-//		try {
-//			Toast.makeText(getApplicationContext(), "trying token " + accessToken, Toast.LENGTH_SHORT).show();
-//		  accessToken = GoogleAuthUtil.getTokenWithNotification(this,
-//		      Plus.AccountApi.getAccountName(googleApiClient),
-//		      scope, new Bundle());
-//		  Toast.makeText(getApplicationContext(), "got token " + accessToken, Toast.LENGTH_SHORT).show();
-//		  authClient.loginWithGoogle(accessToken, new SimpleLoginAuthenticatedHandler() {
-//		  
-//	      public void authenticated(FirebaseSimpleLoginError error, FirebaseSimpleLoginUser user) {
-//		    if (error != null) {
-//		     Toast.makeText(getApplicationContext(), "error with loginwithgoogle", Toast.LENGTH_SHORT).show();
-//		    }
-//		    else {
-//		      // Logged in with Google+
-//		    	Toast.makeText(getApplicationContext(), "User is connected to Firebase!", Toast.LENGTH_LONG).show();
-//		    	fragA.setDataBaseReference(dataRef);
-//				fragB.onLogin();
-//		    	
-//		    }
-//		  }
-//		});
-//		  
-//		} catch (IOException transientEx) {
-//		  // network or server error, the call is expected to succeed if you try again later.
-//		  // Don't attempt to call again immediately - the request is likely to
-//		  // fail, you'll hit quotas or back-off.
-//		  return;
-//		} catch (UserRecoverableAuthException e) {
-//		  // Recover
-//		  accessToken = null;
-//		} catch (GoogleAuthException authEx) {
-//		  // Failure. The call is not expected to ever succeed so it should not be
-//		  // retried.
-//		  return;
-//		} catch (Exception e) {
-//		}		 
-//	}
-
 
 	@Override
 	public void onConnectionSuspended(int arg0) {
 		googleApiClient.connect();		
 	}
-}
 
-//AsyncTask task = new AsyncTask() {
-//	@Override
-//	protected Object doInBackground(Object... params) {
-//		String accessToken = null;
-//		String scope = "oauth2:" + Plus.SCOPE_PLUS_PROFILE;
-//		try {
-//			// We can retrieve the token to check via
-//			// token info or to pass to a service-side
-//			// application.
-//			accessToken = GoogleAuthUtil.getToken(getApplicationContext(),
-//				      Plus.AccountApi.getAccountName(googleApiClient),
-//				      scope);
-//			
-//		} catch (UserRecoverableAuthException e) {
-//			// This error is recoverable, so we could fix this
-//			// by displaying the intent to the user.
-//			accessToken = null;
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		} catch (GoogleAuthException e) {
-//			e.printStackTrace();
-//		}catch (Exception e) {
-//			  throw new RuntimeException(e);
-//		}
-//		return null;
-//	}
-//};
-//task.execute((Void) null);
+	@Override
+	public void createNewEventFromInfoWindowClick() {
+		createNewEvent();
+	}
+
+	@Override
+	public void updateRadius(int radius, boolean finish) {
+		if(myUser != null) myUser.setRadius(radius);
+		fragB.setCircle((double) radius);
+		if(finish) fragA.refresh(myUser);
+	}
+}

@@ -1,5 +1,7 @@
 package com.example.gt.gather;
 
+import java.util.ArrayList;
+
 import com.google.android.gms.maps.model.LatLng;
 
 import android.app.Activity;
@@ -17,7 +19,7 @@ import android.widget.Toast;
 
 public class JoinEventDialog extends DialogFragment implements View.OnClickListener {
 
-	static JoinEventDialog newInstance(String name, String date, String id, double[] latlng, int num, int cap) {
+	static JoinEventDialog newInstance(String name, String date, String id, double[] latlng, int num, int cap, ArrayList<String> userList) {
 	    JoinEventDialog joinFrag = new JoinEventDialog();
 
 	    // Supply num input as an argument.
@@ -28,6 +30,7 @@ public class JoinEventDialog extends DialogFragment implements View.OnClickListe
 	    args.putDoubleArray("latlng", latlng);
 	    args.putInt("num", num);
 	    args.putInt("cap", cap);
+	    args.putStringArrayList("userList", userList);
 //	    args.putDouble("distance", distance);
 	    joinFrag.setArguments(args);
 	    
@@ -47,6 +50,7 @@ public class JoinEventDialog extends DialogFragment implements View.OnClickListe
 	double distance;
 	int numPeople;
 	int capacity;
+	ArrayList<String> users;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState){
@@ -58,6 +62,7 @@ public class JoinEventDialog extends DialogFragment implements View.OnClickListe
 		latlng = getArguments().getDoubleArray("latlng");
 		numPeople = getArguments().getInt("num");
 		capacity = getArguments().getInt("cap");
+		users = getArguments().getStringArrayList("userList");
 //		distance = getArguments().getDouble("distance");
 	}
 	
@@ -99,7 +104,7 @@ public class JoinEventDialog extends DialogFragment implements View.OnClickListe
 		
 		if(v.getId()==R.id.joinButton)
 		{	
-			comm.join(id);
+			comm.join(id, users);
 			dismiss();
 		}
 		else if(v.getId() == R.id.cancelButton)
@@ -110,7 +115,7 @@ public class JoinEventDialog extends DialogFragment implements View.OnClickListe
 	
 	interface Communicator
 	{
-		public void join(String id);
+		public void join(String id, ArrayList<String> users);
 	}
 
 }

@@ -1516,10 +1516,11 @@ containing a value of this type.
         public static final int TextView=0x7f070070;
         public static final int TextView01=0x7f070087;
         public static final int TextView7=0x7f07005b;
-        public static final int act_create=0x7f070098;
-        public static final int act_filter=0x7f070099;
-        public static final int act_logout=0x7f07009c;
-        public static final int act_search=0x7f07009a;
+        public static final int act_create=0x7f07009c;
+        public static final int act_filter=0x7f07009d;
+        public static final int act_logout=0x7f0700a0;
+        public static final int act_radius=0x7f07009f;
+        public static final int act_search=0x7f07009e;
         public static final int action_bar=0x7f07002e;
         public static final int action_bar_activity_content=0x7f070027;
         public static final int action_bar_container=0x7f07002d;
@@ -1531,7 +1532,6 @@ containing a value of this type.
         public static final int action_menu_divider=0x7f070028;
         public static final int action_menu_presenter=0x7f070029;
         public static final int action_mode_close_button=0x7f070036;
-        public static final int action_settings=0x7f07009b;
         public static final int activity_chooser_view_content=0x7f070037;
         public static final int addressSearchBox=0x7f070076;
         public static final int addressView=0x7f07007c;
@@ -1545,6 +1545,7 @@ containing a value of this type.
         public static final int buy_now=0x7f07000f;
         public static final int buy_with_google=0x7f07000e;
         public static final int cancelButton=0x7f070072;
+        public static final int cancelRadiusButton=0x7f070095;
         public static final int checkbox=0x7f07003f;
         public static final int classic=0x7f070011;
         public static final int collapseActionView=0x7f070020;
@@ -1568,8 +1569,8 @@ containing a value of this type.
         public static final int emailTextView=0x7f070080;
         public static final int emptySpacer=0x7f070077;
         public static final int end=0x7f070025;
-        public static final int eventImage=0x7f070095;
-        public static final int eventTitleText=0x7f070096;
+        public static final int eventImage=0x7f070099;
+        public static final int eventTitleText=0x7f07009a;
         public static final int expand_activities_button=0x7f070038;
         public static final int expanded_menu=0x7f07003e;
         public static final int forgotTextView=0x7f070085;
@@ -1610,15 +1611,17 @@ containing a value of this type.
         public static final int numPeopleText=0x7f07008e;
         public static final int numPeopleView=0x7f07007e;
         public static final int num_people=0x7f07007d;
-        public static final int peopleImage=0x7f070097;
+        public static final int peopleImage=0x7f07009b;
         public static final int production=0x7f070007;
         public static final int progress_circular=0x7f07002a;
         public static final int progress_horizontal=0x7f07002b;
-        public static final int pwConfirmEditText=0x7f070093;
-        public static final int pwConfirmTextView=0x7f070092;
+        public static final int pwConfirmEditText=0x7f070097;
+        public static final int pwConfirmTextView=0x7f070096;
         public static final int pwEditText=0x7f070083;
         public static final int pwTextView=0x7f070082;
         public static final int radio=0x7f070041;
+        public static final int radiusSeekBar=0x7f070092;
+        public static final int radiusText=0x7f070093;
         public static final int sandbox=0x7f070008;
         public static final int satellite=0x7f070002;
         public static final int search_badge=0x7f070044;
@@ -1637,7 +1640,7 @@ containing a value of this type.
         public static final int showHome=0x7f070017;
         public static final int showTitle=0x7f070019;
         public static final int signUp=0x7f070088;
-        public static final int signUpButton=0x7f070094;
+        public static final int signUpButton=0x7f070098;
         public static final int spacer=0x7f070065;
         public static final int spacer2=0x7f070071;
         public static final int split_action_bar=0x7f070030;
@@ -1663,6 +1666,7 @@ containing a value of this type.
         public static final int titleView=0x7f070068;
         public static final int top_action_bar=0x7f070032;
         public static final int up=0x7f070033;
+        public static final int updateRadiusButton=0x7f070094;
         public static final int useLogo=0x7f070016;
         public static final int when=0x7f070079;
         public static final int where=0x7f07007b;
@@ -1732,9 +1736,10 @@ containing a value of this type.
         public static final int join_event_dialog=0x7f030021;
         public static final int login_dialog=0x7f030022;
         public static final int new_event_dialog=0x7f030023;
-        public static final int signup_dialog=0x7f030024;
-        public static final int single_row=0x7f030025;
-        public static final int support_simple_spinner_dropdown_item=0x7f030026;
+        public static final int radius_dialog=0x7f030024;
+        public static final int signup_dialog=0x7f030025;
+        public static final int single_row=0x7f030026;
+        public static final int support_simple_spinner_dropdown_item=0x7f030027;
     }
     public static final class menu {
         public static final int main=0x7f0d0000;

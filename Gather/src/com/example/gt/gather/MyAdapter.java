@@ -37,6 +37,7 @@ public class MyAdapter extends FirebaseEventListAdapter {
     	final String name = event.getName();
     	final int num = event.getUsers().size();
     	final int cap = event.getCapacity();
+    	final ArrayList<String> users = event.getUsers();
 //    	holder.image.setImageResource(R.drawable.ic_launcher);
 		holder.title.setText(name);
 		holder.numberOfPeople.setText(""+num+" / "+cap);
@@ -46,7 +47,7 @@ public class MyAdapter extends FirebaseEventListAdapter {
 			@Override
 			public void onClick(View v) {
 				double[] coords = {event.getCoords().getLatitude(), event.getCoords().getLongitude()};
-				JoinEventDialog joinDialog = JoinEventDialog.newInstance(name, event.getDate(), idName, coords, num, cap);
+				JoinEventDialog joinDialog = JoinEventDialog.newInstance(name, event.getDate(), idName, coords, num, cap, users);
 				joinDialog.show(((Activity) v.getContext()).getFragmentManager(), "joinDialog");
 			}
 		});

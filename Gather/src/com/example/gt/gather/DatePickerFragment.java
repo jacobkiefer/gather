@@ -34,7 +34,7 @@ public class DatePickerFragment extends DialogFragment implements OnDateSetListe
 	
 	@Override
 	public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-		comm.setDate(year, monthOfYear, dayOfMonth);		
+		comm.setDate(year, monthOfYear+1, dayOfMonth);		
 	}
 	
 	public interface Communicator
